@@ -10,6 +10,11 @@ import 'package:flutter/material.dart';
  class _EmAltaPageState extends State<EmAltaPage> {
    @override
    Widget build(BuildContext context) {
-     return Container();
+     return Container(
+       child: Center(
+         child: Text(
+             "Em Alta"),
+       ),
+     );
    }
  }

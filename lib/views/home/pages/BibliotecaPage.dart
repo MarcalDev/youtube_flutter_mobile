@@ -11,8 +11,9 @@ class _BibliotecaPageState extends State<BibliotecaPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text(
-        "Biblioteca"
+      child: Center(
+        child: Text(
+            "Biblioteca"),
       ),
     );
   }

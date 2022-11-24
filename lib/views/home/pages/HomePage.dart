@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:youtube_flutter_mobile/views/home/pages/BibliotecaPage.dart';
+import 'package:youtube_flutter_mobile/views/home/pages/InscricoesPage.dart';
+
+import 'EmAltaPage.dart';
+import 'InicioPage.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -50,10 +55,10 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
 
     List<Widget> screens = [
-      Text("Início"),
-      Text("Em Alta"),
-      Text("Inscrições"),
-      Text("Biblioteca")
+      InicioPage(),
+      EmAltaPage(),
+      InscricoesPage(),
+      BibliotecaPage()
     ];
 
     return Scaffold(
@@ -61,7 +66,7 @@ class _HomePageState extends State<HomePage> {
         iconTheme: IconThemeData(
           color: _appBarIconColor
         ),
-        backgroundColor: _appBarBackgroundColor,
+        backgroundColor: Theme.of(context).primaryColor,
         title: Image.asset(
           "images/pngs/youtube.png",
           width: 98,
@@ -88,16 +93,10 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: Container(
-        color: _pageBackgroundColor,
-        child: Row(
-          children: [
-            //screens[_indiceAtual],
-            FloatingActionButton(onPressed: _changeTheme),
-          ],
-        ),
+        child: screens[_indiceAtual],
       ),
         bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: _bottomBarBackgroundColor,
+        backgroundColor: Theme.of(context).primaryColor,
         currentIndex: _indiceAtual,
         onTap: (indice){
           setState(() {

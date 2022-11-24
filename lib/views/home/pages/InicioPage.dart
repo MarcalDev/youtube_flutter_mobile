@@ -10,6 +10,12 @@ class InicioPage extends StatefulWidget {
 class _InicioPageState extends State<InicioPage> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      color: Theme.of(context).backgroundColor,
+      child: Center(
+        child: Text(
+            "Início"),
+      ),
+    );
   }
 }

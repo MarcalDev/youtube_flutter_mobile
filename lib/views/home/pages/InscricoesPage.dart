@@ -10,6 +10,11 @@ class InscricoesPage extends StatefulWidget {
 class _InscricoesPageState extends State<InscricoesPage> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      child: Center(
+        child: Text(
+            "Inscrições"),
+      ),
+    );
   }
 }
