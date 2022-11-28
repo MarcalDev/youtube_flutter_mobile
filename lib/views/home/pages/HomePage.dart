@@ -93,6 +93,7 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: Container(
+        padding: EdgeInsets.all(16),
         child: screens[_indiceAtual],
       ),
         bottomNavigationBar: BottomNavigationBar(
