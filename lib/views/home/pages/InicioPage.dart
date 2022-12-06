@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:youtube_flutter_mobile/Api.dart';
 import 'package:youtube_flutter_mobile/models/Video.dart';
-
+import 'package:flutter_youtube/flutter_youtube.dart';
 class InicioPage extends StatefulWidget {
-  const InicioPage({Key? key}) : super(key: key);
+
+  String pesquisa;
+  InicioPage( this.pesquisa );
 
   @override
   State<InicioPage> createState() => _InicioPageState();
@@ -11,10 +13,10 @@ class InicioPage extends StatefulWidget {
 
 class _InicioPageState extends State<InicioPage> {
 
-  _listarVideos(){
+  _listarVideos(String pesquisa){
 
     Api api = Api();
-    return api.pesquisar("");
+    return api.pesquisar(pesquisa);
   }
 
   @override
@@ -24,7 +26,7 @@ class _InicioPageState extends State<InicioPage> {
     api.pesquisar("");
     
     return FutureBuilder<List<Video>?>(
-        future: _listarVideos(),
+        future: _listarVideos(widget.pesquisa),
         builder: (context, snapshot){
           switch(snapshot.connectionState){
             case ConnectionState.none:
@@ -39,22 +41,32 @@ class _InicioPageState extends State<InicioPage> {
                     itemBuilder: (context, index) {
                       List<Video>? videos = snapshot.data;
                       Video video = videos![index];
-                      return Column(
-                        children: <Widget>[
-                          Container(
-                            height: 200,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: NetworkImage(video.thumbnail),
-                              )
+                      return GestureDetector(
+                        onTap: (){
+                          FlutterYoutube.playYoutubeVideoById(
+                              apiKey: CHAVE_API_YOUTUBE,
+                              videoId: video.id,
+                              autoPlay: true,
+                              fullScreen: true,
+                          );
+                        },
+                        child: Column(
+                          children: <Widget>[
+                            Container(
+                              height: 200,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: NetworkImage(video.thumbnail),
+                                  )
+                              ),
                             ),
-                          ),
-                          ListTile(
-                            title: Text( video.title),
-                            subtitle: Text(video.description),
-                          )
-                        ],
+                            ListTile(
+                              title: Text( video.title),
+                              subtitle: Text(video.description),
+                            )
+                          ],
+                        ),
                       );
                     },
                     itemCount: snapshot.data!.length,

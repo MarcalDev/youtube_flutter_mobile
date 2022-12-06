@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:youtube_flutter_mobile/views/home/pages/BibliotecaPage.dart';
 import 'package:youtube_flutter_mobile/views/home/pages/InscricoesPage.dart';
+import 'package:youtube_flutter_mobile/views/home/widgets/CustomSearchDelegate.dart';
 
 import 'EmAltaPage.dart';
 import 'InicioPage.dart';
@@ -51,11 +52,14 @@ class _HomePageState extends State<HomePage> {
   }
 
   int _indiceAtual = 0;
+  String _resultado = "";
+  
   @override
   Widget build(BuildContext context) {
 
+
     List<Widget> screens = [
-      InicioPage(),
+      InicioPage(_resultado),
       EmAltaPage(),
       InscricoesPage(),
       BibliotecaPage()
@@ -73,23 +77,30 @@ class _HomePageState extends State<HomePage> {
           height: 22,),
         actions: <Widget>[
           IconButton(
+              onPressed: () async{
+                String? res = await showSearch(context: context, delegate: CustomSearchDelegate());
+                setState(() {
+                  _resultado = res.toString();
+                });
+              },
+              icon: Icon(Icons.search)
+          ),
+        /*
+          IconButton(
               onPressed: (){
                 print("acao: videocam");
               },
               icon: Icon(Icons.videocam)
           ),
-          IconButton(
-              onPressed: (){
-                print("acao: videocam");
-              },
-              icon: Icon(Icons.search)
-          ),
+
           IconButton(
               onPressed: (){
                 print("acao: videocam");
               },
               icon: Icon(Icons.account_circle)
           ),
+
+      */
         ],
       ),
       body: Container(

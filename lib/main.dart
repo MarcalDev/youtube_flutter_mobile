@@ -13,5 +13,6 @@ void main() => runApp(
       //   primaryColor: Colors.black87,
       //   backgroundColor: const Color(0xff303030),
       // ),
-      home: HomePage()
+      home: HomePage(),
+      debugShowCheckedModeBanner: false,
 ));
