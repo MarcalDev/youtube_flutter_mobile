@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:youtube_flutter_mobile/Api.dart';
 import 'package:youtube_flutter_mobile/models/Video.dart';
 import 'package:flutter_youtube/flutter_youtube.dart';
+
 class InicioPage extends StatefulWidget {
 
   String pesquisa;
@@ -19,6 +20,32 @@ class _InicioPageState extends State<InicioPage> {
     return api.pesquisar(pesquisa);
   }
 
+  // carrega tela, 1 unica vez // construtor
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  // carregar dependencias
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+  }
+
+  //
+  @override
+  void didUpdateWidget(covariant InicioPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+  }
+
+  // descarte de itens
+  @override
+  void dispose() {
+
+    super.dispose();
+  }
+
+  // construção da interface
   @override
   Widget build(BuildContext context) {
     

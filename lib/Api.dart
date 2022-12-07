@@ -34,4 +34,42 @@ class Api{
     }
 
   }
+
+  Future<List<String>> carregarSugestoes(String pesquisa) async{
+    http.Response response = await http.get(
+    Uri.parse(
+        "https://clients1.google.com/complete/search?client=youtube&gs_ri=youtube&ds=yt&q=$pesquisa"
+    ));
+
+    if(response.statusCode == 200){
+
+      List<String> searchSuggestions = [];
+      String data = response.body.toString();
+
+      // print("resultado inicial:" + response.body);
+      searchSuggestions = data.split('(').toList();
+      data = searchSuggestions[1];
+      // print("resultado pre:" + data.toString());
+       searchSuggestions = data.split(']],').toList();
+      for(int i=0;i<searchSuggestions.length;i++){
+          searchSuggestions[i] = searchSuggestions[i].split(',')[0];
+          searchSuggestions[i] = searchSuggestions[i].replaceAll('[', '');
+          searchSuggestions[i] = searchSuggestions[i].replaceAll('"', '');
+
+      }
+      searchSuggestions.removeAt(0);
+      searchSuggestions.removeAt(searchSuggestions.length - 1);
+
+      for(int i=0;i<searchSuggestions.length;i++){
+        print("resultado final:" + searchSuggestions[i]);
+      }
+      return searchSuggestions;
+    }
+    else{
+      return [''];
+      print("Não foi possivel encontrar o resultado");
+
+    }
+
+  }
 }

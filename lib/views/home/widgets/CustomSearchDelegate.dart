@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:youtube_flutter_mobile/Api.dart';
 
 class CustomSearchDelegate extends SearchDelegate<String>{
 
@@ -39,34 +40,59 @@ class CustomSearchDelegate extends SearchDelegate<String>{
     return Container();
   }
 
+  _returnSuggestions(String pesquisa) {
+    Api api = Api();
+    return api.carregarSugestoes(pesquisa);
+  }
+
   // define sugestões de pesquisa
   @override
   Widget buildSuggestions(BuildContext context) {
-    List<String> suggestionsList;
-
     if( query.isNotEmpty){
-      suggestionsList = [
-        "Android", "Android Navegação", "IOS", "Jogos"
-      ].where(
-          (texto) => texto.toLowerCase().startsWith( query.toLowerCase() )
-      ).toList();
 
-      return ListView.builder(
-          itemCount: suggestionsList.length,
-          itemBuilder: (context, index){
-            return ListTile(
-              onTap: (){
-                close(context, suggestionsList[index]);
-              },
-              title: Text(suggestionsList[index]),
-            );
+      return FutureBuilder<List<String>>(
+        future: _returnSuggestions(query),
+        builder: (context, snapshot){
+          switch(snapshot.connectionState){
+            case ConnectionState.done:
+              if(snapshot.hasData){
+                List<String>? sugList = snapshot.data;
+                return ListView.builder(
+                    itemCount: sugList?.length,
+                    itemBuilder: (context, index){
+                      return ListTile(
+                        onTap: (){
+                          close(context, sugList![index]);
+                        },
+                        title: Text(sugList![index]),
+                      );
+                    }
+                );
+              }
+              else{
+                return Center(
+                  child: Text("Nenhum dado a ser exibido"),
+                );
+              }
+            case ConnectionState.waiting:
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            case ConnectionState.active:
+              return Center();
+            case ConnectionState.none:
+              return Center();
           }
+        },
       );
+
     } else{
-      return Center(
-        child: Text("Nenhum resultado para a pesquisa"),
+    return Center(
+      child: Text("Nenhum resultado para a pesquisa"),
       );
     }
+
+
 
   }
 
