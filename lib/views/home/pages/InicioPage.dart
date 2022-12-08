@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:youtube_flutter_mobile/Api.dart';
 import 'package:youtube_flutter_mobile/models/Video.dart';
 import 'package:flutter_youtube/flutter_youtube.dart';
+import 'package:youtube_flutter_mobile/views/video_player/pages/VideoPlayerPage.dart';
 
 class InicioPage extends StatefulWidget {
 
@@ -14,44 +15,45 @@ class InicioPage extends StatefulWidget {
 
 class _InicioPageState extends State<InicioPage> {
 
-  _listarVideos(String pesquisa){
+  _listarVideos(String pesquisa) {
 
     Api api = Api();
     return api.pesquisar(pesquisa);
+
   }
 
-  // carrega tela, 1 unica vez // construtor
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  // carregar dependencias
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-  }
-
+  // // carrega tela, 1 unica vez // construtor
+  // @override
+  // void initState() {
+  //   super.initState();
+  // }
   //
-  @override
-  void didUpdateWidget(covariant InicioPage oldWidget) {
-    super.didUpdateWidget(oldWidget);
-  }
-
-  // descarte de itens
-  @override
-  void dispose() {
-
-    super.dispose();
-  }
+  // // carregar dependencias
+  // @override
+  // void didChangeDependencies() {
+  //   super.didChangeDependencies();
+  // }
+  //
+  // //
+  // @override
+  // void didUpdateWidget(covariant InicioPage oldWidget) {
+  //   super.didUpdateWidget(oldWidget);
+  // }
+  //
+  // // descarte de itens
+  // @override
+  // void dispose() {
+  //
+  //   super.dispose();
+  // }
 
   // construção da interface
   @override
   Widget build(BuildContext context) {
-    
+
     Api api = Api();
     api.pesquisar("");
-    
+
     return FutureBuilder<List<Video>?>(
         future: _listarVideos(widget.pesquisa),
         builder: (context, snapshot){
@@ -70,12 +72,13 @@ class _InicioPageState extends State<InicioPage> {
                       Video video = videos![index];
                       return GestureDetector(
                         onTap: (){
-                          FlutterYoutube.playYoutubeVideoById(
-                              apiKey: CHAVE_API_YOUTUBE,
-                              videoId: video.id,
-                              autoPlay: true,
-                              fullScreen: true,
-                          );
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => YoutubePlayerPage(videoId: video.id)));
+                          // FlutterYoutube.playYoutubeVideoById(
+                          //     apiKey: CHAVE_API_YOUTUBE,
+                          //     videoId: video.id,
+                          //     autoPlay: true,
+                          //     fullScreen: true,
+                          // );
                         },
                         child: Column(
                           children: <Widget>[
@@ -107,6 +110,7 @@ class _InicioPageState extends State<InicioPage> {
                 return Center(
                   child: Text("Nenhum dado a ser exibido"),
                 );
+
               }
             break;
           }
