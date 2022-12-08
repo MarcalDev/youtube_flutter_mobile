@@ -20,10 +20,40 @@ class Api{
     );
     if(response.statusCode == 200){
 
+      print("Resultado: " + response.body );
       Map<String, dynamic> dadosJson = json.decode( response.body );
 
       List<Video>? videos = dadosJson["items"].map<Video>(
           (map){
+            return Video.fromJson(map);
+          }
+      ).toList();
+
+      return videos;
+    } else{
+      return null;
+    }
+
+  }
+
+  Future<List<Video>?> getRelatedVideos(String actualVideoId) async{
+    http.Response response = await http.get(
+        Uri.parse(URL_BASE + "search"
+            "?part=snippet"
+            "&relatedToVideoId=$actualVideoId"
+            "&type=video"
+            "&maxResults=20"
+            "&order=date"
+            "&key=$CHAVE_API_YOUTUBE"
+        //"&channelId=$ID_CANAL"
+            )
+    );
+    if(response.statusCode == 200){
+
+      Map<String, dynamic> dadosJson = json.decode( response.body );
+
+      List<Video>? videos = dadosJson["items"].map<Video>(
+              (map){
             return Video.fromJson(map);
           }
       ).toList();

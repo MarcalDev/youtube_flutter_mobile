@@ -72,7 +72,7 @@ class _InicioPageState extends State<InicioPage> {
                       Video video = videos![index];
                       return GestureDetector(
                         onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => YoutubePlayerPage(videoId: video.id)));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => YoutubePlayerPage(actualVideo: video)));
                           // FlutterYoutube.playYoutubeVideoById(
                           //     apiKey: CHAVE_API_YOUTUBE,
                           //     videoId: video.id,
