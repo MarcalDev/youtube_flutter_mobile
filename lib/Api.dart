@@ -1,9 +1,10 @@
 import 'package:http/http.dart' as http;
 import 'package:youtube_flutter_mobile/models/Channel.dart';
+import 'package:youtube_flutter_mobile/models/VideoStatistic.dart';
 import 'dart:convert';
 
 import 'models/Video.dart';
-const CHAVE_API_YOUTUBE = "AIzaSyApbyc2q5JlFRto1CfegE4Gwk2ZXYGu3EU";
+const CHAVE_API_YOUTUBE = "AIzaSyBnsADcS5JpjeN7lH6PpdqIqkWpe_sJShk";
 const ID_CANAL = "";
 const URL_BASE = "https://www.googleapis.com/youtube/v3/";
 
@@ -13,7 +14,7 @@ class Api{
         Uri.parse(URL_BASE + "search"
           "?part=snippet"
           "&type=video"
-          "&maxResults=20"
+          "&maxResults=5"
           "&order=date"
           "&key=$CHAVE_API_YOUTUBE"
           //"&channelId=$ID_CANAL"
@@ -42,6 +43,7 @@ class Api{
         Uri.parse(URL_BASE + "search"
             "?part=snippet"
             "&channelId=$channelId"
+            "&maxResults=1"
             "&type=channel"
             "&key=$CHAVE_API_YOUTUBE"
         )
@@ -51,11 +53,37 @@ class Api{
       print("Resultado Canal:" + response.body);
       Map<String, dynamic> dadosJson = json.decode(response.body);
 
-      Channel channel = dadosJson["items"].map<Channel>(
-        (map){
-          return Channel.fromJson(map);
-        }
-      );
+      List<Channel>? channels = dadosJson["items"].map<Channel>(
+          (map){
+            return Channel.fromJson(map);
+          }
+      ).toList();
+
+      return channels!.first;
+    }
+    else{
+      return null;
+    }
+  }
+
+  Future<VideoStatistic?> getVideoStatistic(String videoId) async{
+    http.Response response = await http.get(
+      Uri.parse(URL_BASE + "videos?"
+          "id=$videoId"
+          "&part=statistics"
+          "&key=$CHAVE_API_YOUTUBE"
+      )
+    );
+    print("Resultado Statisticas:" + response.body);
+    if(response.statusCode == 200){
+      Map<String, dynamic> dadosJson = json.decode(response.body);
+
+      List<VideoStatistic>? videoStatistics = dadosJson["items"].map<VideoStatistic>(
+              (map){
+            return VideoStatistic.fromJson(map);
+          }
+      ).toList();
+      return videoStatistics!.first;
     }
     else{
       return null;
@@ -68,12 +96,13 @@ class Api{
             "?part=snippet"
             "&relatedToVideoId=$actualVideoId"
             "&type=video"
-            "&maxResults=20"
+            "&maxResults=5"
             "&order=date"
             "&key=$CHAVE_API_YOUTUBE"
         //"&channelId=$ID_CANAL"
             )
     );
+    print("Related: " + response.body);
     if(response.statusCode == 200){
 
       Map<String, dynamic> dadosJson = json.decode( response.body );

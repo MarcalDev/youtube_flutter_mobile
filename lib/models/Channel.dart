@@ -1,15 +1,15 @@
 class Channel{
   String id = "";
-  String Title = "";
-  String ProfilePicture = "";
+  String title = "";
+  String profilePicture = "";
 
-  Channel({required this.id, required this.Title, required this.ProfilePicture});
+  Channel({required this.id, required this.title, required this.profilePicture});
 
   factory Channel.fromJson(Map<String, dynamic> json){
     return Channel(
       id: json["id"]["channelId"],
-      Title: json["snippet"]["title"],
-      ProfilePicture: json["snippet"]["thumbnails"]["high"]["url"],
+      title: json["snippet"]["title"],
+      profilePicture: json["snippet"]["thumbnails"]["medium"]["url"],
     );
   }
 }

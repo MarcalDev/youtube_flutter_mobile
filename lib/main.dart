@@ -7,6 +7,7 @@ void main() => runApp(
       theme: ThemeData(
         primaryColor: Colors.white,
         backgroundColor: Colors.white,
+
       ),
       darkTheme: ThemeData.dark(),
       // darkTheme: ThemeData(
