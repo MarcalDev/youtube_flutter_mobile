@@ -1,4 +1,5 @@
 import 'package:http/http.dart' as http;
+import 'package:youtube_flutter_mobile/models/Channel.dart';
 import 'dart:convert';
 
 import 'models/Video.dart';
@@ -34,6 +35,31 @@ class Api{
       return null;
     }
 
+  }
+
+  Future<Channel?> getChannel(String channelId) async{
+    http.Response response = await http.get(
+        Uri.parse(URL_BASE + "search"
+            "?part=snippet"
+            "&channelId=$channelId"
+            "&type=channel"
+            "&key=$CHAVE_API_YOUTUBE"
+        )
+    );
+
+    if(response.statusCode == 200){
+      print("Resultado Canal:" + response.body);
+      Map<String, dynamic> dadosJson = json.decode(response.body);
+
+      Channel channel = dadosJson["items"].map<Channel>(
+        (map){
+          return Channel.fromJson(map);
+        }
+      );
+    }
+    else{
+      return null;
+    }
   }
 
   Future<List<Video>?> getRelatedVideos(String actualVideoId) async{
