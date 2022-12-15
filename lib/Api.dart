@@ -20,7 +20,7 @@ class Api{
     );
     if(response.statusCode == 200){
 
-      print("Resultado: " + response.body );
+      print("Resultadooo: " + response.body );
       Map<String, dynamic> dadosJson = json.decode( response.body );
 
       List<Video>? videos = dadosJson["items"].map<Video>(

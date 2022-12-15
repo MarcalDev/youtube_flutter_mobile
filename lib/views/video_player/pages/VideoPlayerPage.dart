@@ -42,20 +42,20 @@ class _YoutubePlayerPageState extends State<YoutubePlayerPage> {
               showVideoProgressIndicator: true,
             ),
             Text(widget.actualVideo.title),
-            Text(widget.actualVideo.description),
+            Text("1.5M views 2 years ago"),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Column(
                   children: [
                     Icon(Icons.thumb_up_outlined),
-                    Text(widget.actualVideo.likeCount)
+                    Text("29K")
                   ],
                 ),
                 Column(
                   children: [
                     Icon(Icons.thumb_down_outlined),
-                    Text(widget.actualVideo.dislikeCount)
+                    Text("1.3K")
                   ],
                 ),
                 Column(
@@ -78,7 +78,19 @@ class _YoutubePlayerPageState extends State<YoutubePlayerPage> {
                 ),
                 ]
             ),
-            Text(widget.actualVideo.channelTitle)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  children: [
+                    Text(widget.actualVideo.channelTitle),
+                    Text("2.21M Subscribers")
+                  ],
+                ),
+                Text("SUBSCRIBED"),
+                Icon(CupertinoIcons.bell)
+              ],
+            )
           ],
         ),
       )
