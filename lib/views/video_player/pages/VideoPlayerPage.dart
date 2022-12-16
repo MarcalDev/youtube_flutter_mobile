@@ -33,6 +33,19 @@ class _YoutubePlayerPageState extends State<YoutubePlayerPage> {
     return api.getRelatedVideos(videoId);
   }
 
+  _numberFormatter(String number){
+    double doubleNumber = double.parse(number);
+    if(doubleNumber >= 1000 && doubleNumber<1000000){
+      doubleNumber = (doubleNumber/1000);
+      return doubleNumber.toStringAsFixed(1) + 'K';
+    }else if(doubleNumber>=1000000){
+      doubleNumber = (doubleNumber/1000000);
+      return doubleNumber.toStringAsFixed(1) + 'M';
+    } else{
+      return number;
+    }
+  }
+
   @override
   void initState() {
     _controller = YoutubePlayerController(
@@ -81,14 +94,14 @@ class _YoutubePlayerPageState extends State<YoutubePlayerPage> {
                                       showVideoProgressIndicator: true,
                                     ),
                                     Text(widget.actualVideo.title),
-                                    Text(videoStatistics!.viewCount),
+                                    Text(_numberFormatter(videoStatistics!.viewCount)),
                                     Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                         children: [
                                           Column(
                                             children: [
                                               Icon(Icons.thumb_up_outlined),
-                                              Text(videoStatistics!.likeCount,style: TextStyle(fontSize: 14)
+                                              Text(_numberFormatter(videoStatistics!.likeCount),style: TextStyle(fontSize: 14)
                                               )
                                             ],
                                           ),
@@ -176,21 +189,39 @@ class _YoutubePlayerPageState extends State<YoutubePlayerPage> {
                                                                                 default:
                                                                                 if(snapshot.hasData) {
                                                                                   VideoStatistic? relatedVideoStatistics = snapshot.data;
-                                                                                  return Row(
-                                                                                    children: [
-                                                                                      Image.network(relatedChannel!.profilePicture,height: 30, width: 30),
-                                                                                      Column(
-                                                                                        children: [
-                                                                                          Text(recommendedVideo.title),
-                                                                                          Row(
-                                                                                            children: [
-                                                                                              Text(relatedChannel!.title),
-                                                                                              Text(relatedVideoStatistics!.viewCount)
-                                                                                            ],
-                                                                                          )
-                                                                                        ],
-                                                                                      )
-                                                                                    ],
+                                                                                  return Container(
+                                                                                    height: 50,
+                                                                                    child: Row(
+                                                                                      children: [
+                                                                                        Container(
+                                                                                          decoration: BoxDecoration(
+                                                                                            shape: BoxShape.circle,
+                                                                                            color: Colors.transparent,
+                                                                                          ),
+                                                                                          child: Image.network(relatedChannel!.profilePicture,height: 30, width: 30),
+                                                                                          padding: EdgeInsets.fromLTRB(15,0,15,0),
+                                                                                        ),
+                                                                                        Expanded(
+                                                                                            child: Column(
+                                                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                              children: [
+                                                                                                Flexible(
+                                                                                                    child: Container(
+                                                                                                      child: Text(recommendedVideo.title,overflow: TextOverflow.ellipsis),
+                                                                                                    )
+                                                                                                ),
+                                                                                                Row(
+                                                                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                                                                  children: [
+                                                                                                    Text(relatedChannel!.title),
+                                                                                                    Text(_numberFormatter(relatedVideoStatistics!.viewCount))
+                                                                                                  ],
+                                                                                                )
+                                                                                              ],
+                                                                                            )
+                                                                                        )
+                                                                                      ],
+                                                                                    )
                                                                                   );
                                                                                 } else{
                                                                                   return Text('');
