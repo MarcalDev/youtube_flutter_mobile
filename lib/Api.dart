@@ -23,6 +23,7 @@ class Api{
     if(response.statusCode == 200){
 
       print("Resultadooo: " + response.body );
+
       Map<String, dynamic> dadosJson = json.decode( response.body );
 
       List<Video>? videos = dadosJson["items"].map<Video>(
@@ -40,11 +41,9 @@ class Api{
 
   Future<Channel?> getChannel(String channelId) async{
     http.Response response = await http.get(
-        Uri.parse(URL_BASE + "search"
-            "?part=snippet"
-            "&channelId=$channelId"
-            "&maxResults=1"
-            "&type=channel"
+        Uri.parse(URL_BASE + "channels"
+            "?part=snippet&part=statistics"
+            "&id=$channelId"
             "&key=$CHAVE_API_YOUTUBE"
         )
     );
@@ -68,8 +67,8 @@ class Api{
 
   Future<VideoStatistic?> getVideoStatistic(String videoId) async{
     http.Response response = await http.get(
-      Uri.parse(URL_BASE + "videos?"
-          "id=$videoId"
+      Uri.parse(URL_BASE + "videos"
+          "?id=$videoId"
           "&part=statistics"
           "&key=$CHAVE_API_YOUTUBE"
       )
@@ -92,15 +91,21 @@ class Api{
 
   Future<List<Video>?> getRelatedVideos(String actualVideoId) async{
     http.Response response = await http.get(
-        Uri.parse(URL_BASE + "search"
-            "?part=snippet"
-            "&relatedToVideoId=$actualVideoId"
-            "&type=video"
-            "&maxResults=5"
-            "&order=date"
+        Uri.parse(URL_BASE + "videos"
+            "?part=snippet&part=statistics"
+            "&chart=mostPopular"
             "&key=$CHAVE_API_YOUTUBE"
-        //"&channelId=$ID_CANAL"
-            )
+          //"&channelId=$ID_CANAL"
+        )
+
+        // Uri.parse(URL_BASE + "search"
+        //     "?part=snippet"
+        //     "&relatedToVideoId=$actualVideoId"
+        //     "&type=video"
+        //     "&maxResults=5"
+        //     "&order=date"
+        //     "&key=$CHAVE_API_YOUTUBE"
+        // //"&channelId=$ID_CANAL"
     );
     print("Related: " + response.body);
     if(response.statusCode == 200){

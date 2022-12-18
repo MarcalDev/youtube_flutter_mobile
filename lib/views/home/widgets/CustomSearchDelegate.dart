@@ -57,16 +57,21 @@ class CustomSearchDelegate extends SearchDelegate<String>{
             case ConnectionState.done:
               if(snapshot.hasData){
                 List<String>? sugList = snapshot.data;
-                return ListView.builder(
-                    itemCount: sugList?.length,
-                    itemBuilder: (context, index){
-                      return ListTile(
-                        onTap: (){
-                          close(context, sugList![index]);
-                        },
-                        title: Text(sugList![index]),
-                      );
-                    }
+                return Container(
+                  color: Colors.white,
+                  child: ListView.builder(
+                      itemCount: sugList?.length,
+                      itemBuilder: (context, index){
+                        return ListTile(
+                          focusColor: Colors.white,
+                          hoverColor: Colors.white,
+                          onTap: (){
+                            close(context, sugList![index]);
+                          },
+                          title: Text(sugList![index]),
+                        );
+                      }
+                  )
                 );
               }
               else{
@@ -88,7 +93,7 @@ class CustomSearchDelegate extends SearchDelegate<String>{
 
     } else{
     return Center(
-      child: Text("Nenhum resultado para a pesquisa"),
+      child: Text(""),
       );
     }
 

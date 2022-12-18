@@ -7,9 +7,9 @@ class Channel{
 
   factory Channel.fromJson(Map<String, dynamic> json){
     return Channel(
-      id: json["id"]["channelId"],
+      id: json["id"],
       title: json["snippet"]["title"],
-      profilePicture: json["snippet"]["thumbnails"]["medium"]["url"],
+      profilePicture: json["snippet"]["thumbnails"]["default"]["url"],
     );
   }
 }

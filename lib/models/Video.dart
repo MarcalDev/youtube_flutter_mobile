@@ -13,7 +13,8 @@ class Video{
 
   factory Video.fromJson(Map<String, dynamic> json){
     return Video(
-      id: json["id"]["videoId"],
+
+      id: (json["id"].toString().split(',').length > 1)? json["id"]["videoId"]:json["id"],
       title: json["snippet"]["title"],
       thumbnail: json["snippet"]["thumbnails"]["high"]["url"],
       channel: json["snippet"]["channelId"],

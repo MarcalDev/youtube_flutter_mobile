@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:youtube_flutter_mobile/views/home/pages/BibliotecaPage.dart';
 import 'package:youtube_flutter_mobile/views/home/pages/InscricoesPage.dart';
 import 'package:youtube_flutter_mobile/views/home/widgets/CustomSearchDelegate.dart';
@@ -56,7 +57,7 @@ class _HomePageState extends State<HomePage> {
   
   @override
   Widget build(BuildContext context) {
-
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
     List<Widget> screens = [
       InicioPage(_resultado),
@@ -85,26 +86,10 @@ class _HomePageState extends State<HomePage> {
               },
               icon: Icon(Icons.search)
           ),
-        /*
-          IconButton(
-              onPressed: (){
-                print("acao: videocam");
-              },
-              icon: Icon(Icons.videocam)
-          ),
-
-          IconButton(
-              onPressed: (){
-                print("acao: videocam");
-              },
-              icon: Icon(Icons.account_circle)
-          ),
-
-      */
         ],
       ),
       body: Container(
-        padding: EdgeInsets.all(16),
+        padding: EdgeInsets.all(0),
         child: screens[_indiceAtual],
       ),
         bottomNavigationBar: BottomNavigationBar(
