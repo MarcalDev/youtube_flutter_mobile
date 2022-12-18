@@ -13,9 +13,10 @@ class Api{
     http.Response response = await http.get(
         Uri.parse(URL_BASE + "search"
           "?part=snippet"
+          "&safeSearch=strict"
           "&type=video"
+          "&order=relevance"
           "&maxResults=5"
-          "&order=date"
           "&key=$CHAVE_API_YOUTUBE"
           //"&channelId=$ID_CANAL"
           "&q=$pesquisa")

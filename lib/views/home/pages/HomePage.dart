@@ -12,51 +12,26 @@ class HomePage extends StatefulWidget {
 
   @override
   State<HomePage> createState() => _HomePageState();
+
 }
 
 class _HomePageState extends State<HomePage> {
-  //cores para modo escuro/claro
-  bool _lightThemeOn = true;
   Color _bottomBarIconColor = Colors.red;
   Color _appBarIconColor = Colors.grey;
-  Color _appBarBackgroundColor = Colors.white;
-  Color _bottomBarBackgroundColor = Colors.white;
   Color _unselectedBottomBarItemColor = Colors.grey;
-  Color _selectedBottomBarItemColor = Colors.red;
-  Color _pageBackgroundColor = Colors.white;
 
-  _changeTheme(){
-    if(_lightThemeOn){
-      setState(() {
-        _bottomBarIconColor = Colors.white;
-        _appBarIconColor = Colors.white;
-        _appBarBackgroundColor = Colors.black87;
-        _bottomBarBackgroundColor = Colors.black87;
-        _unselectedBottomBarItemColor = Colors.white60;
-        _selectedBottomBarItemColor = Colors.white;
-        _pageBackgroundColor = Colors.black54;
-        _lightThemeOn = false;
-      });
-    }else{
-      setState(() {
-        _bottomBarIconColor = Colors.red;
-        _appBarIconColor = Colors.grey;
-        _appBarBackgroundColor = Colors.white;
-        _bottomBarBackgroundColor = Colors.white;
-        _unselectedBottomBarItemColor = Colors.grey;
-        _selectedBottomBarItemColor = Colors.red;
-        _pageBackgroundColor = Colors.white;
-        _lightThemeOn = true;
-      });
-    }
-
-  }
 
   int _indiceAtual = 0;
   String _resultado = "";
+
   
   @override
   Widget build(BuildContext context) {
+
+    bool _isDarkMode;
+    final brightness = MediaQuery.of(context).platformBrightness;
+    _isDarkMode = brightness == Brightness.dark;
+
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
     List<Widget> screens = [
@@ -72,8 +47,7 @@ class _HomePageState extends State<HomePage> {
           color: _appBarIconColor
         ),
         backgroundColor: Theme.of(context).primaryColor,
-        title: Image.asset(
-          "images/pngs/youtube.png",
+        title: Image.asset( (_isDarkMode)?"images/pngs/youtube_dark_mode.png":"images/pngs/youtube.png",
           width: 98,
           height: 22,),
         actions: <Widget>[

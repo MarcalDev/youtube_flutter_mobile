@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.youtube_flutter_mobile">
    <application
-        android:label="youtube_flutter_mobile"
+        android:label="Youtube Flutter"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

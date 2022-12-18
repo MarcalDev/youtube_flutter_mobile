@@ -93,240 +93,243 @@ class _YoutubePlayerPageState extends State<YoutubePlayerPage> {
                                       controller: _controller,
                                       showVideoProgressIndicator: true,
                                     ),
-                                    // Container de informações do video
-                                    Container(
-                                      padding: EdgeInsets.fromLTRB(12, 10, 12, 10),
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            widget.actualVideo.title,
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold
-                                            ),
-                                          ),
-                                          Text(
-                                            _numberFormatter(videoStatistics!.viewCount) + ' views',
-                                            style: TextStyle(
-                                              fontSize: 14,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    //Row de reações de video
-                                    Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Column(
+                                    Expanded(
+                                          child: Column (
                                             children: [
-                                              Icon(Icons.thumb_up_outlined),
-                                              Text(_numberFormatter(videoStatistics!.likeCount),style: TextStyle(fontSize: 14)
-                                              )
-                                            ],
-                                          ),
-                                          Icon(Icons.thumb_down_outlined),
-                                          Column(
-                                            children: [
-                                              Icon(CupertinoIcons.arrowshape_turn_up_right),
-                                              Text("Share",style: TextStyle(fontSize: 14))
-                                            ],
-                                          ),
-                                          Column(
-                                            children: [
-                                              Icon(CupertinoIcons.arrow_down_to_line),
-                                              Text("Download",style: TextStyle(fontSize: 14)
-                                              )
-                                            ],
-                                          ),
-                                          Column(
-                                            children: [
-                                              Icon(CupertinoIcons.plus_rectangle_on_rectangle),
-                                              Text("Save",style: TextStyle(fontSize: 14))
-                                            ],
-                                          ),
-                                        ]),
-                                    //Container de informações do canal
-                                    Container(
-                                      margin: EdgeInsets.fromLTRB(0, 15, 0, 10),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Container(
-                                              margin: EdgeInsets.only(left:12),
-                                              child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                children: [
-                                                  CircleAvatar(
-                                                    radius:15,
-                                                    backgroundImage: NetworkImage(channel!.profilePicture),
-                                                  ),
-                                                  Container(
-                                                      margin: EdgeInsets.only(left: 15),
-                                                      child: Column(
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                        children: [
-                                                          Text(channel!.title, style: TextStyle(fontSize: 16)),
-                                                          Text("2.21M subscribers",style: TextStyle(fontSize: 14))
-                                                        ],
-                                                      )
-                                                  ),
-                                                ],
-                                              )
-                                          ),
-                                          Container(
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.end,
-                                              children: [
-                                                Text("SUBSCRIBE",style: TextStyle(fontSize: 17,color: Colors.red,fontWeight: FontWeight.bold)),
-                                                Padding(
-                                                  padding: EdgeInsets.fromLTRB(15, 0, 12, 0),
-                                                  child: Icon(CupertinoIcons.bell),
+                                              Container(
+                                                padding: EdgeInsets.fromLTRB(12, 10, 12, 10),
+                                                child: Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      widget.actualVideo.title,
+                                                      style: TextStyle(
+                                                          fontSize: 16,
+                                                          fontWeight: FontWeight.bold
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      _numberFormatter(videoStatistics!.viewCount) + ' views',
+                                                      style: TextStyle(
+                                                        fontSize: 14,
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
-                                              ],
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    // Lista videos recomendados
-                                    FutureBuilder<List<Video>?>(
-                                        future: _getRelatedVideos(widget.actualVideo.id),
-                                        builder: (context, AsyncSnapshot snapshot){
-                                          switch (snapshot.connectionState) {
-                                            case ConnectionState.none:
-                                            case ConnectionState.waiting:
-                                              return Center(
-                                                child: CircularProgressIndicator(),
-                                              );
-                                            case ConnectionState.active:
-                                            case ConnectionState.done:
-                                              if (snapshot.hasData) {
-                                                return Expanded(
+                                              ),
+                                              //Row de reações de video
+                                              Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    Column(
+                                                      children: [
+                                                        Icon(Icons.thumb_up_outlined),
+                                                        Text(_numberFormatter(videoStatistics!.likeCount),style: TextStyle(fontSize: 14)
+                                                        )
+                                                      ],
+                                                    ),
+                                                    Icon(Icons.thumb_down_outlined),
+                                                    Column(
+                                                      children: [
+                                                        Icon(CupertinoIcons.arrowshape_turn_up_right),
+                                                        Text("Share",style: TextStyle(fontSize: 14))
+                                                      ],
+                                                    ),
+                                                    Column(
+                                                      children: [
+                                                        Icon(CupertinoIcons.arrow_down_to_line),
+                                                        Text("Download",style: TextStyle(fontSize: 14)
+                                                        )
+                                                      ],
+                                                    ),
+                                                    Column(
+                                                      children: [
+                                                        Icon(CupertinoIcons.plus_rectangle_on_rectangle),
+                                                        Text("Save",style: TextStyle(fontSize: 14))
+                                                      ],
+                                                    ),
+                                                  ]),
+                                              //Container de informações do canal
+                                              Container(
+                                                margin: EdgeInsets.fromLTRB(0, 15, 0, 10),
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: [
+                                                    Container(
+                                                        margin: EdgeInsets.only(left:12),
+                                                        child: Row(
+                                                          mainAxisAlignment: MainAxisAlignment.start,
+                                                          children: [
+                                                            CircleAvatar(
+                                                              radius:15,
+                                                              backgroundImage: NetworkImage(channel!.profilePicture),
+                                                            ),
+                                                            Container(
+                                                                margin: EdgeInsets.only(left: 15),
+                                                                child: Column(
+                                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                                  children: [
+                                                                    Text(channel!.title, style: TextStyle(fontSize: 16)),
+                                                                    Text("2.21M subscribers",style: TextStyle(fontSize: 14))
+                                                                  ],
+                                                                )
+                                                            ),
+                                                          ],
+                                                        )
+                                                    ),
+                                                    Container(
+                                                      child: Row(
+                                                        mainAxisAlignment: MainAxisAlignment.end,
+                                                        children: [
+                                                          Text("SUBSCRIBE",style: TextStyle(fontSize: 17,color: Colors.red,fontWeight: FontWeight.bold)),
+                                                          Padding(
+                                                            padding: EdgeInsets.fromLTRB(15, 0, 12, 0),
+                                                            child: Icon(CupertinoIcons.bell),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                              // Lista videos recomendados
+                                              FutureBuilder<List<Video>?>(
+                                                  future: _getRelatedVideos(widget.actualVideo.id),
+                                                  builder: (context, AsyncSnapshot snapshot){
+                                                    switch (snapshot.connectionState) {
+                                                      case ConnectionState.none:
+                                                      case ConnectionState.waiting:
+                                                        return Center(
+                                                          child: CircularProgressIndicator(),
+                                                        );
+                                                      case ConnectionState.active:
+                                                      case ConnectionState.done:
+                                                        if (snapshot.hasData) {
+                                                          return Expanded(
 
-                                                    child: ListView.separated(
-                                                      padding: EdgeInsets.zero,
-                                                        itemBuilder: (context, index) {
-                                                          List<Video>? recommendedVideos = snapshot.data;
-                                                          Video recommendedVideo = recommendedVideos![index];
-                                                          return FutureBuilder<Channel?>(
-                                                              future: _getChannel(recommendedVideo.channel),
-                                                              builder: (context, snapshot){
-                                                                switch(snapshot.connectionState){
-                                                                  case ConnectionState.waiting: return Text('');
-                                                                  default:
-                                                                    if(snapshot.hasData){
-                                                                      Channel? relatedChannel = snapshot.data;
-                                                                      return GestureDetector(
-                                                                        onTap: (){
-                                                                          Navigator.push(context, MaterialPageRoute(builder: (context) => YoutubePlayerPage(actualVideo: recommendedVideo)));
-                                                                        },
-                                                                        child: Column(
-                                                                          children: <Widget>[
-                                                                            Container(
-                                                                              padding: EdgeInsets.zero,
-                                                                              height: 200,
-                                                                              decoration: BoxDecoration(
-                                                                                  image: DecorationImage(
-                                                                                    fit: BoxFit.cover,
-                                                                                    image: NetworkImage(recommendedVideo.thumbnail),
-                                                                                  )
-                                                                              ),
-                                                                            ),
-                                                                            FutureBuilder<VideoStatistic?>(
-                                                                              future: _getVideoStatistic(recommendedVideo.id),
-                                                                              builder: (context, snapshot){
-                                                                                switch(snapshot.connectionState){
-                                                                                case ConnectionState.waiting: return Text('');
-                                                                                default:
-                                                                                if(snapshot.hasData) {
-                                                                                  VideoStatistic? relatedVideoStatistics = snapshot.data;
-                                                                                  return Container(
-                                                                                    padding: EdgeInsets.fromLTRB(12,8,12,0),
-                                                                                    height: 60,
-                                                                                    child: Row(
-                                                                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                                                                      children: [
-                                                                                        CircleAvatar(
-                                                                                          backgroundImage: NetworkImage(relatedChannel!.profilePicture),
-                                                                                          radius: 15,
-                                                                                        ),
-                                                                                        Expanded(
-                                                                                            child: Container(
-                                                                                              margin: EdgeInsets.only(left: 12),
-                                                                                              child: Column(
-                                                                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                                                                children: [
-                                                                                                  Flexible(
-                                                                                                      child: Container(
-                                                                                                        child: Text(
-                                                                                                          recommendedVideo.title,
-                                                                                                          overflow: TextOverflow.ellipsis,
-                                                                                                          style: TextStyle(
-                                                                                                              fontWeight: FontWeight.w500,
-                                                                                                              fontSize:  15
-                                                                                                          ),
+                                                              child: ListView.builder(
+                                                                padding: EdgeInsets.zero,
+                                                                itemBuilder: (context, index) {
+                                                                  List<Video>? recommendedVideos = snapshot.data;
+                                                                  Video recommendedVideo = recommendedVideos![index];
+                                                                  return FutureBuilder<Channel?>(
+                                                                      future: _getChannel(recommendedVideo.channel),
+                                                                      builder: (context, snapshot){
+                                                                        switch(snapshot.connectionState){
+                                                                          case ConnectionState.waiting: return Text('');
+                                                                          default:
+                                                                            if(snapshot.hasData){
+                                                                              Channel? relatedChannel = snapshot.data;
+                                                                              return GestureDetector(
+                                                                                onTap: (){
+                                                                                  Navigator.push(context, MaterialPageRoute(builder: (context) => YoutubePlayerPage(actualVideo: recommendedVideo)));
+                                                                                },
+                                                                                child: Column(
+                                                                                  children: <Widget>[
+                                                                                    Container(
+                                                                                      padding: EdgeInsets.zero,
+                                                                                      height: 200,
+                                                                                      decoration: BoxDecoration(
+                                                                                          image: DecorationImage(
+                                                                                            fit: BoxFit.cover,
+                                                                                            image: NetworkImage(recommendedVideo.thumbnail),
+                                                                                          )
+                                                                                      ),
+                                                                                    ),
+                                                                                    FutureBuilder<VideoStatistic?>(
+                                                                                      future: _getVideoStatistic(recommendedVideo.id),
+                                                                                      builder: (context, snapshot){
+                                                                                        switch(snapshot.connectionState){
+                                                                                          case ConnectionState.waiting: return Text('');
+                                                                                          default:
+                                                                                            if(snapshot.hasData) {
+                                                                                              VideoStatistic? relatedVideoStatistics = snapshot.data;
+                                                                                              return Container(
+                                                                                                  padding: EdgeInsets.fromLTRB(12,8,12,0),
+                                                                                                  height: 60,
+                                                                                                  child: Row(
+                                                                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                                    children: [
+                                                                                                      CircleAvatar(
+                                                                                                        backgroundImage: NetworkImage(relatedChannel!.profilePicture),
+                                                                                                        radius: 15,
+                                                                                                      ),
+                                                                                                      Expanded(
+                                                                                                        child: Container(
+                                                                                                            margin: EdgeInsets.only(left: 12),
+                                                                                                            child: Column(
+                                                                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                                              children: [
+                                                                                                                Flexible(
+                                                                                                                    child: Container(
+                                                                                                                      child: Text(
+                                                                                                                        recommendedVideo.title,
+                                                                                                                        overflow: TextOverflow.ellipsis,
+                                                                                                                        style: TextStyle(
+                                                                                                                            fontWeight: FontWeight.w500,
+                                                                                                                            fontSize:  15
+                                                                                                                        ),
+                                                                                                                      ),
+                                                                                                                    )
+                                                                                                                ),
+                                                                                                                Container(
+                                                                                                                    margin: EdgeInsets.only(top:1),
+                                                                                                                    child: Row(
+                                                                                                                      mainAxisAlignment: MainAxisAlignment.start,
+                                                                                                                      children: [
+                                                                                                                        Text(
+                                                                                                                          relatedChannel!.title,
+                                                                                                                          style: TextStyle(
+                                                                                                                              fontSize: 12
+                                                                                                                          ),
+                                                                                                                        ),
+                                                                                                                        Text(
+                                                                                                                          '  •  ' + _numberFormatter(relatedVideoStatistics!.viewCount) + ' views',
+                                                                                                                          style: TextStyle(
+                                                                                                                              fontSize: 12
+                                                                                                                          ),
+                                                                                                                        )
+                                                                                                                      ],
+                                                                                                                    )
+                                                                                                                )
+                                                                                                              ],
+                                                                                                            )
                                                                                                         ),
                                                                                                       )
-                                                                                                  ),
-                                                                                                  Container(
-                                                                                                    margin: EdgeInsets.only(top:1),
-                                                                                                    child: Row(
-                                                                                                      mainAxisAlignment: MainAxisAlignment.start,
-                                                                                                      children: [
-                                                                                                        Text(
-                                                                                                          relatedChannel!.title,
-                                                                                                          style: TextStyle(
-                                                                                                              fontSize: 12
-                                                                                                          ),
-                                                                                                        ),
-                                                                                                        Text(
-                                                                                                          '  •  ' + _numberFormatter(relatedVideoStatistics!.viewCount) + ' views',
-                                                                                                          style: TextStyle(
-                                                                                                              fontSize: 12
-                                                                                                          ),
-                                                                                                        )
-                                                                                                      ],
-                                                                                                    )
+                                                                                                    ],
                                                                                                   )
-                                                                                                ],
-                                                                                              )
-                                                                                            ),
-                                                                                        )
-                                                                                      ],
+                                                                                              );
+                                                                                            } else{
+                                                                                              return Text('Estatistica dos videos não carregada');
+                                                                                            }
+                                                                                        }
+                                                                                      },
                                                                                     )
-                                                                                  );
-                                                                                } else{
-                                                                                  return Text('Estatistica dos videos não carregada');
-                                                                                }
-                                                                                }
-                                                                              },
-                                                                            )
-                                                                          ],
-                                                                        ),
-                                                                      );
-                                                                    }else{
-                                                                      return Text('Canal dos videos não carregado');
-                                                                    }
-                                                                }
+                                                                                  ],
+                                                                                ),
+                                                                              );
+                                                                            }else{
+                                                                              return Text('Canal dos videos não carregado');
+                                                                            }
+                                                                        }
 
-                                                              });
-                                                        },
-                                                        itemCount: snapshot.data!.length,
-                                                        separatorBuilder: (context, index)=> Divider(
-                                                          height: 3,
-                                                          color: Colors.red,
-                                                        )
-                                                    ));
-                                              } else {
-                                                return Text('Videos recomendados não carregados');
-                                              }
-                                              break;
-                                          }
-                                        }
-                                    )
+                                                                      });
+                                                                },
+                                                                itemCount: snapshot.data!.length,
+
+                                                              ));
+                                                        } else {
+                                                          return Text('Videos recomendados não carregados');
+                                                        }
+                                                        break;
+                                                    }
+                                                  }
+                                              )
+                                            ],
+                                          )
+                                    )                                                              // Container de informações do video
+
                                   ],
                                 ),
                               ),

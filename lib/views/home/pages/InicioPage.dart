@@ -29,9 +29,12 @@ class _InicioPageState extends State<InicioPage> {
     if(doubleNumber >= 1000 && doubleNumber<1000000){
       doubleNumber = (doubleNumber/1000);
       return doubleNumber.toStringAsFixed(1) + 'K';
-    }else if(doubleNumber>=1000000){
+    }else if(doubleNumber>=1000000 && doubleNumber<1000000000){
       doubleNumber = (doubleNumber/1000000);
       return doubleNumber.toStringAsFixed(1) + 'M';
+    } else if(doubleNumber>=1000000000){
+      doubleNumber = (doubleNumber/1000000000);
+      return doubleNumber.toStringAsFixed(1) + 'B';
     } else{
       return number;
     }
@@ -65,7 +68,7 @@ class _InicioPageState extends State<InicioPage> {
             case ConnectionState.active:
             case ConnectionState.done:
               if(snapshot.hasData){
-                return ListView.separated(
+                return ListView.builder(
                     itemBuilder: (context, index) {
                       List<Video>? videos = snapshot.data;
                       Video video = videos![index];
@@ -172,11 +175,8 @@ class _InicioPageState extends State<InicioPage> {
                           }
                           });
                     },
+
                     itemCount: snapshot.data!.length,
-                    separatorBuilder: (context, index)=> Divider(
-                      height: 3,
-                      color: Colors.red,
-                    )
                 );
 
               }else{
