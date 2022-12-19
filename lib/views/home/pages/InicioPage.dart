@@ -40,6 +40,32 @@ class _InicioPageState extends State<InicioPage> {
     }
   }
 
+  _dateFormatter(String data){
+    var parsedDate = DateTime.parse(data);
+    var timeBetween = DateTime.now().difference(parsedDate);
+    if(timeBetween.inDays >= 30 ){
+      var months = timeBetween.inDays/30;
+      if(months > 12){
+        if(months>24){
+          return(months/12).toStringAsFixed(0) + ' years ago';
+        }else{
+          return(months/12).toStringAsFixed(0) + ' year ago';
+        }
+      } else{
+        if(months>1){
+          return months.toStringAsFixed(0) + ' months ago';
+        }else{
+          return months.toStringAsFixed(0) + ' month ago';
+        }
+      }
+    } else if(timeBetween.inDays > 1){
+      return (timeBetween.inDays).toString() + ' days ago';
+    } else{
+      return '1 day ago';
+    }
+
+  }
+
   _getVideoStatistic(String videoId) {
     Api api = Api();
     return api.getVideoStatistic(videoId);
@@ -148,7 +174,13 @@ class _InicioPageState extends State<InicioPage> {
                                                           style: TextStyle(
                                                           fontSize: 12
                                                           ),
-                                                        )
+                                                        ),
+                                                        Text(
+                                                          '  •  ' + _dateFormatter(video!.publishDate),
+                                                          style: TextStyle(
+                                                            fontSize: 12,
+                                                          ),
+                                                        ),
                                                       ],
                                                     )
                                                 )
