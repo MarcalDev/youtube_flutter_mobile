@@ -58,7 +58,7 @@ class CustomSearchDelegate extends SearchDelegate<String>{
               if(snapshot.hasData){
                 List<String>? sugList = snapshot.data;
                 return Container(
-                  color: Colors.white,
+                  color: Theme.of(context).primaryColor,
                   child: ListView.builder(
                       itemCount: sugList?.length,
                       itemBuilder: (context, index){

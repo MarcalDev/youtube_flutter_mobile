@@ -95,6 +95,7 @@ class _YoutubePlayerPageState extends State<YoutubePlayerPage> {
                                     ),
                                     Expanded(
                                           child: Column (
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               Container(
                                                 padding: EdgeInsets.fromLTRB(12, 10, 12, 10),
