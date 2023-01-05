@@ -16,7 +16,7 @@ class Api{
           "&safeSearch=strict"
           "&type=video"
           "&order=relevance"
-          "&maxResults=5"
+          "&maxResults=8"
           "&key=$CHAVE_API_YOUTUBE"
           //"&channelId=$ID_CANAL"
           "&q=$pesquisa")
@@ -90,13 +90,13 @@ class Api{
     }
   }
 
-  Future<List<Video>?> getRelatedVideos(String actualVideoId) async{
+  Future<List<Video>?> getRelatedVideos(String actualVideoId, String channelId) async{
     http.Response response = await http.get(
         Uri.parse(URL_BASE + "videos"
             "?part=snippet&part=statistics"
             "&chart=mostPopular"
             "&key=$CHAVE_API_YOUTUBE"
-          //"&channelId=$ID_CANAL"
+            //"&channelId=$channelId"
         )
 
         // Uri.parse(URL_BASE + "search"

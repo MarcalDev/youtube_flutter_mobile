@@ -9,9 +9,11 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 class RelatedVideosWidget extends StatefulWidget {
   const RelatedVideosWidget({
     Key? key,
-    required this.actualVideo
+    required this.actualVideo,
+    required this.homeVideosList
   }) : super(key: key);
   final Video actualVideo;
+  final List<Video> homeVideosList;
 
   @override
   State<RelatedVideosWidget> createState() => _RelatedVideosWidgetState();
@@ -21,19 +23,19 @@ class _RelatedVideosWidgetState extends State<RelatedVideosWidget> {
 
   late List<Channel?> _relatedChannelList;
   late List<VideoStatistic?> _relatedVideoStatistic;
-  late VideoStatistic _actualVideoStatistic;
-  late Channel _actualVideoChannel;
   late YoutubePlayerController _controller;
 
   Future<List<Video>?> _getRelatedVideos(Video actualVideo) async{
     Api api = Api();
-    var videoList = await api.getRelatedVideos(actualVideo.id);
+    //var videoList = await api.getRelatedVideos(actualVideo.id,actualVideo.channel);
+    var videoList = widget.homeVideosList;
     _relatedChannelList = <Channel>[];
     _relatedVideoStatistic = <VideoStatistic>[];
 
+    videoList.removeWhere((element) => element.id == widget.actualVideo.id);
     for(var video in videoList!){
-      _relatedChannelList.add(await api.getChannel(actualVideo.channel));
-      _relatedVideoStatistic.add(await api.getVideoStatistic(actualVideo.id));
+      _relatedChannelList.add(await api.getChannel(video.channel));
+      _relatedVideoStatistic.add(await api.getVideoStatistic(video.id));
     }
     return videoList;
   }
@@ -107,7 +109,7 @@ class _RelatedVideosWidgetState extends State<RelatedVideosWidget> {
                     List<Video>? relatedVideos = snapshot!.data;
                     return GestureDetector(
                       onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => YoutubePlayerPage(actualVideo: relatedVideos![index])));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => YoutubePlayerPage(actualVideo: relatedVideos![index], homeVideosList: widget.homeVideosList )));
                       },
                       child: Column(
                         children: <Widget>[

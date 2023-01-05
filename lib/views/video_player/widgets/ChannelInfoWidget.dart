@@ -139,12 +139,15 @@ class _ChannelInfoWidgetState extends State<ChannelInfoWidget> {
                         backgroundImage: NetworkImage(widget.actualChannel!.profilePicture),
                       ),
                       Container(
-                          margin: EdgeInsets.only(left: 15),
+                          margin: EdgeInsets.only(left: 15, right: 15),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(widget.actualChannel!.title, style: TextStyle(fontSize: 16)),
-                              Text("2.21M subscribers",style: TextStyle(fontSize: 14))
+                               Container(
+                                    padding: EdgeInsets.only(right: 25),
+                                    child: Text(widget.actualChannel!.title, overflow: TextOverflow.ellipsis,style: TextStyle(fontSize: 16)),
+                                  ),
+                                  Text("2.21M subscribers",style: TextStyle(fontSize: 14))
                             ],
                           )
                       ),

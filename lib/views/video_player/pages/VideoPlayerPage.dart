@@ -11,7 +11,8 @@ import '../../../models/Channel.dart';
 
 class YoutubePlayerPage extends StatefulWidget {
   final Video actualVideo;
-  const YoutubePlayerPage({super.key, required this.actualVideo});
+  final List<Video> homeVideosList;
+  const YoutubePlayerPage({super.key, required this.actualVideo, required this.homeVideosList});
 
   @override
   State<YoutubePlayerPage> createState() => _YoutubePlayerPageState();
@@ -70,7 +71,7 @@ class _YoutubePlayerPageState extends State<YoutubePlayerPage> {
                                             /// Informações do vídeo e do canal
                                             ChannelInfoWidget(actualChannel: channel!, actualVideo: widget.actualVideo, actualVideoStatistic: _actualVideoStatistic!),
                                             /// Lista videos recomendados
-                                            RelatedVideosWidget(actualVideo: widget.actualVideo),
+                                            RelatedVideosWidget(actualVideo: widget.actualVideo, homeVideosList: widget.homeVideosList),
                                           ],
                                         )
                                       ],

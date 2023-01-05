@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:youtube_flutter_mobile/views/home/pages/TabViewPage.dart';
 
-import 'views/home/pages/HomePage.dart';
 
 void main() => runApp(
     MaterialApp(
@@ -14,6 +14,6 @@ void main() => runApp(
       //   primaryColor: Colors.black87,
       //   backgroundColor: const Color(0xff303030),
       // ),
-      home: HomePage(),
+      home: TabViewPage(),
       debugShowCheckedModeBanner: false,
 ));
