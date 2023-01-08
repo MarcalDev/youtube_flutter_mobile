@@ -126,47 +126,50 @@ class _ChannelInfoWidgetState extends State<ChannelInfoWidget> {
             ]),
         Container(
           margin: EdgeInsets.fromLTRB(0, 15, 0, 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                  margin: EdgeInsets.only(left:12),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      CircleAvatar(
-                        radius:15,
-                        backgroundImage: NetworkImage(widget.actualChannel!.profilePicture),
-                      ),
-                      Container(
-                          margin: EdgeInsets.only(left: 15, right: 15),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                               Container(
-                                    padding: EdgeInsets.only(right: 25),
-                                    child: Text(widget.actualChannel!.title, overflow: TextOverflow.ellipsis,style: TextStyle(fontSize: 16)),
-                                  ),
-                                  Text("2.21M subscribers",style: TextStyle(fontSize: 14))
-                            ],
-                          )
-                      ),
-                    ],
-                  )
-              ),
-              Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text("SUBSCRIBE",style: TextStyle(fontSize: 17,color: Colors.red,fontWeight: FontWeight.bold)),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(15, 0, 12, 0),
-                      child: Icon(CupertinoIcons.bell),
+          child: Container(
+              margin: EdgeInsets.only(left:12),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Flexible(
+                    child: Container(
+                        child: Row(
+                          children: [
+                            CircleAvatar(backgroundImage: NetworkImage(widget.actualChannel!.profilePicture),radius: 15),
+
+                            Flexible(
+                                child: Padding(
+                                    padding: EdgeInsets.only(left: 15),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(widget.actualChannel.title!, overflow: TextOverflow.ellipsis,style: TextStyle(fontSize: 16)),
+                                        Text("2.21M subscribers",style: TextStyle(fontSize: 14))
+                                      ],
+                                    )
+                                )
+                            )
+                          ],
+                        )
                     ),
-                  ],
-                ),
+                  ),
+                  Expanded(
+                    child:  Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text("SUBSCRIBE",style: TextStyle(fontSize: 17,color: Colors.red,fontWeight: FontWeight.bold)),
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(15, 0, 12, 0),
+                            child: Icon(CupertinoIcons.bell),
+                          ),
+                        ],
+                      ),
+                    )
+                  )
+
+                ],
               )
-            ],
           ),
         )
       ],

@@ -149,16 +149,17 @@ class _RelatedVideosWidgetState extends State<RelatedVideosWidget> {
                                                 )
                                             ),
                                             Container(
-                                                margin: EdgeInsets.only(top:1),
+                                                margin: EdgeInsets.only(top:1, right: 15),
                                                 child: Row(
                                                   mainAxisAlignment: MainAxisAlignment.start,
                                                   children: [
-                                                    Text(
-                                                      _relatedChannelList[index]!.title,
+                                                Flexible(
+                                                    child: Text(
+                                                      _relatedChannelList[index]!.title, overflow: TextOverflow.ellipsis,
                                                       style: TextStyle(
                                                           fontSize: 12
                                                       ),
-                                                    ),
+                                                    )),
                                                     Text(
                                                       '  •  ' + _numberFormatter(_relatedVideoStatistic[index]!.viewCount) + ' views',
                                                       style: TextStyle(

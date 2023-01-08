@@ -85,19 +85,19 @@ class _TabViewPageState extends State<TabViewPage> {
           items: [
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
-              label: "Início",
+              label: "Home",
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.whatshot),
-              label: "Em alta",
+              label: "Trending",
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.subscriptions),
-              label: "Inscrições",
+              label: "Subscriptions",
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.folder),
-              label: "Biblioteca",
+              label: "Library",
             ),
           ]
       ),
