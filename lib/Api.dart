@@ -4,7 +4,7 @@ import 'package:youtube_flutter_mobile/models/VideoStatistic.dart';
 import 'dart:convert';
 
 import 'models/Video.dart';
-const CHAVE_API_YOUTUBE = "AIzaSyDS__ZTFht_N-W2xWC5VbQFGd9AEKQy_VU";
+const CHAVE_API_YOUTUBE = "AIzaSyBUVfnMM_papFqfjeWHuqAKXXGqBV3zXQM";
 const ID_CANAL = "";
 const URL_BASE = "https://www.googleapis.com/youtube/v3/";
 
@@ -18,12 +18,11 @@ class Api{
           "&order=relevance"
           "&maxResults=8"
           "&key=$CHAVE_API_YOUTUBE"
-          //"&channelId=$ID_CANAL"
           "&q=$pesquisa")
     );
     if(response.statusCode == 200){
 
-      print("Resultadooo: " + response.body );
+      //print("Resultadooo: " + response.body );
 
       Map<String, dynamic> dadosJson = json.decode( response.body );
 
@@ -46,6 +45,7 @@ class Api{
             "?part=snippet&part=statistics"
             "&id=$channelId"
             "&key=$CHAVE_API_YOUTUBE"
+            //channels?part=snippet&part=statistics&id=UCyMaz2H2tHcc6avYIWqk2Sg&key=[YOUR_API_KEY]'
         )
     );
 
@@ -74,7 +74,7 @@ class Api{
           "&key=$CHAVE_API_YOUTUBE"
       )
     );
-    print("Resultado Statisticas:" + response.body);
+    //print("Resultado Statisticas:" + response.body);
     if(response.statusCode == 200){
       Map<String, dynamic> dadosJson = json.decode(response.body);
 
@@ -98,17 +98,8 @@ class Api{
             "&key=$CHAVE_API_YOUTUBE"
             //"&channelId=$channelId"
         )
-
-        // Uri.parse(URL_BASE + "search"
-        //     "?part=snippet"
-        //     "&relatedToVideoId=$actualVideoId"
-        //     "&type=video"
-        //     "&maxResults=5"
-        //     "&order=date"
-        //     "&key=$CHAVE_API_YOUTUBE"
-        // //"&channelId=$ID_CANAL"
     );
-    print("Related: " + response.body);
+    //print("Related: " + response.body);
     if(response.statusCode == 200){
 
       Map<String, dynamic> dadosJson = json.decode( response.body );
@@ -151,15 +142,13 @@ class Api{
       searchSuggestions.removeAt(0);
       searchSuggestions.removeAt(searchSuggestions.length - 1);
 
-      for(int i=0;i<searchSuggestions.length;i++){
-        print("resultado final:" + searchSuggestions[i]);
-      }
+      // for(int i=0;i<searchSuggestions.length;i++){
+      //   print("resultado final:" + searchSuggestions[i]);
+      // }
       return searchSuggestions;
     }
     else{
       return [''];
-      print("Não foi possivel encontrar o resultado");
-
     }
 
   }

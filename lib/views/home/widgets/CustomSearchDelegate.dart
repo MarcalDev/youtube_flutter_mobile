@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:youtube_flutter_mobile/Api.dart';
+import 'package:youtube_flutter_mobile/views/home/widgets/SearchedVideosListWidget.dart';
 
 class CustomSearchDelegate extends SearchDelegate<String>{
+  CustomSearchDelegate({
+    required this.searchText,
+    required this.showVideoList,
+    //required this.showSuggestedList,
+  });
+  String searchText;
+  bool showVideoList;
+  //bool showSuggestedList;
 
   // botão de limpeza de texto
   @override
@@ -13,11 +22,6 @@ class CustomSearchDelegate extends SearchDelegate<String>{
             query = "";
           },
       ),
-      // IconButton(
-      //   icon: Icon(Icons.done),
-      //   onPressed: (){
-      //   },
-      // ),
     ];
   }
 
@@ -27,16 +31,16 @@ class CustomSearchDelegate extends SearchDelegate<String>{
     return IconButton(
       icon: Icon(Icons.arrow_back),
       onPressed: (){
-        close(context, "");
+        close(context, "Android");
       },
-      );
+    );
 
   }
 
   // constrói os resultados
   @override
   Widget buildResults(BuildContext context) {
-    close(context,query);
+    //close(context,query);
     return Container();
   }
 
@@ -45,11 +49,13 @@ class CustomSearchDelegate extends SearchDelegate<String>{
     return api.carregarSugestoes(pesquisa);
   }
 
+  @override void showResults(BuildContext context) {
+    showVideoList = true;
+  }
   // define sugestões de pesquisa
   @override
   Widget buildSuggestions(BuildContext context) {
-    if( query.isNotEmpty){
-
+    if(query.isNotEmpty  && !showVideoList){
       return FutureBuilder<List<String>>(
         future: _returnSuggestions(query),
         builder: (context, snapshot){
@@ -58,20 +64,26 @@ class CustomSearchDelegate extends SearchDelegate<String>{
               if(snapshot.hasData){
                 List<String>? sugList = snapshot.data;
                 return Container(
-                  color: Theme.of(context).primaryColor,
-                  child: ListView.builder(
-                      itemCount: sugList?.length,
-                      itemBuilder: (context, index){
-                        return ListTile(
-                          focusColor: Colors.white,
-                          hoverColor: Colors.white,
-                          onTap: (){
-                            close(context, sugList![index]);
-                          },
-                          title: Text(sugList![index]),
-                        );
-                      }
-                  )
+                    color: Theme.of(context).primaryColor,
+                    child: ListView.builder(
+                        itemCount: sugList?.length,
+                        itemBuilder: (context, index){
+                          return ListTile(
+                            focusColor: Colors.white,
+                            hoverColor: Colors.white,
+                            onTap: () async{
+                              //close(context, sugList![index]);
+                              //_showVideosList(sugList);
+                              //Navigator.push(context, MaterialPageRoute(builder: (context) => CustomSearchDelegate()
+                              //await showSearch(context: context, delegate: CustomSearchDelegate(searchText: sugList![index], showVideoList: true));
+                              showVideoList = true;
+                              //searchText = sugList![index];
+                              query = sugList![index];
+                            },
+                            title: Text(sugList![index]),
+                          );
+                        }
+                    )
                 );
               }
               else{
@@ -90,15 +102,15 @@ class CustomSearchDelegate extends SearchDelegate<String>{
           }
         },
       );
-
-    } else{
-    return Center(
-      child: Text(""),
-      );
     }
-
-
-
+    else if(showVideoList){
+      showVideoList = false;
+      //query = searchText;
+      FocusManager.instance.primaryFocus?.unfocus();
+      //return Container(child: Text("Video List"));
+      return SearchedVideosListWidget(searchText: query);
+    } else{
+      return Container();
+    }
   }
-
 }

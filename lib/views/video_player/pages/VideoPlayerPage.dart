@@ -65,6 +65,7 @@ class _YoutubePlayerPageState extends State<YoutubePlayerPage> {
                                 ),
                                 Expanded(
                                     child: ListView(
+                                      padding: EdgeInsets.all(0),
                                       children:<Widget>[
                                         Column(
                                           children: [

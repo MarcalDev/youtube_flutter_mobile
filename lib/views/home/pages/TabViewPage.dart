@@ -53,7 +53,7 @@ class _TabViewPageState extends State<TabViewPage> {
         actions: <Widget>[
           IconButton(
               onPressed: () async{
-                String? res = await showSearch(context: context, delegate: CustomSearchDelegate());
+                String? res = await showSearch(context: context, delegate: CustomSearchDelegate(searchText: "", showVideoList: false));
                 setState(() {
                   _resultado = res.toString();
                 });

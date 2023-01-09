@@ -59,10 +59,13 @@ class _ChannelInfoWidgetState extends State<ChannelInfoWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
           padding: EdgeInsets.fromLTRB(12, 10, 12, 10),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
@@ -144,7 +147,7 @@ class _ChannelInfoWidgetState extends State<ChannelInfoWidget> {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(widget.actualChannel.title!, overflow: TextOverflow.ellipsis,style: TextStyle(fontSize: 16)),
-                                        Text("2.21M subscribers",style: TextStyle(fontSize: 14))
+                                        Text(_numberFormatter(widget.actualChannel.subscriberCount!) + " subscribers",style: TextStyle(fontSize: 14))
                                       ],
                                     )
                                 )
