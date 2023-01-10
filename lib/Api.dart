@@ -4,7 +4,7 @@ import 'package:youtube_flutter_mobile/models/VideoStatistic.dart';
 import 'dart:convert';
 
 import 'models/Video.dart';
-const CHAVE_API_YOUTUBE = "AIzaSyDwSJO3TsmLeqSXqOuRxF9rtadl2SOytBM";
+const CHAVE_API_YOUTUBE = "AIzaSyBUVfnMM_papFqfjeWHuqAKXXGqBV3zXQM";
 const ID_CANAL = "";
 const URL_BASE = "https://www.googleapis.com/youtube/v3/";
 
