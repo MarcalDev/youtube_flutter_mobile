@@ -84,15 +84,17 @@ class _YoutubePlayerPageState extends State<YoutubePlayerPage> {
                     ),
                   );
                 } else {
-                  return Center( child: Text("Nenhum dado a ser exibido"));
+                  return Container(
+                      child: Padding(padding: EdgeInsets.only(left: 25, right: 25) ,child: Center(child: Text("Server Is Currently Down For Maintenance, Please Try Again Later", textAlign: TextAlign.center))
+                      ));
                 }
                 break;
             }
           });
     }catch(ex){
       return Container(
-          child: Center(child: Text("Server Is Currently Down For Maintenance, Please Try Again Later"))
-      );
+          child: Padding(padding: EdgeInsets.only(left: 25, right: 25) ,child: Center(child: Text("Server Is Currently Down For Maintenance, Please Try Again Later", textAlign: TextAlign.center))
+          ));
     }
 
   }

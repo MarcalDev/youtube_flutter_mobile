@@ -190,8 +190,8 @@ class _RelatedVideosWidgetState extends State<RelatedVideosWidget> {
                   );
                 } else {
                   return Container(
-                      child: Center(child: Text("Server Is Currently Down For Maintenance, Please Try Again Later"))
-                  );
+                      child: Padding(padding: EdgeInsets.only(left: 25, right: 25) ,child: Center(child: Text("Server Is Currently Down For Maintenance, Please Try Again Later", textAlign: TextAlign.center))
+                      ));
                 }
                 break;
             }
@@ -199,8 +199,8 @@ class _RelatedVideosWidgetState extends State<RelatedVideosWidget> {
       );
     } catch(ex){
       return Container(
-          child: Center(child: Text("Server Is Currently Down For Maintenance, Please Try Again Later"))
-      );
+          child: Padding(padding: EdgeInsets.only(left: 25, right: 25) ,child: Center(child: Text("Server Is Currently Down For Maintenance, Please Try Again Later", textAlign: TextAlign.center))
+          ));
     }
 
   }
