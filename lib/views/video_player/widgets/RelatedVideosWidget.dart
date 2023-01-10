@@ -88,111 +88,120 @@ class _RelatedVideosWidgetState extends State<RelatedVideosWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Video>?>(
-        future: _getRelatedVideos(widget.actualVideo),
-        builder: (context, AsyncSnapshot snapshot){
-          switch (snapshot.connectionState) {
-            case ConnectionState.none:
-            case ConnectionState.waiting:
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            case ConnectionState.active:
-            case ConnectionState.done:
-              if (snapshot.hasData) {
-                return ListView.builder(
-                  shrinkWrap: true,
-                  physics: ClampingScrollPhysics(),
-                  itemCount: snapshot.data!.length,
-                  padding: EdgeInsets.zero,
-                  itemBuilder: (context, index) {
-                    List<Video>? relatedVideos = snapshot!.data;
-                    return GestureDetector(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => YoutubePlayerPage(actualVideo: relatedVideos![index], homeVideosList: widget.homeVideosList )));
-                      },
-                      child: Column(
-                        children: <Widget>[
-                          Container(
-                            padding: EdgeInsets.zero,
-                            height: 200,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: NetworkImage(relatedVideos![index].thumbnail),
-                                )
-                            ),
-                          ),
-                          Container(
-                              padding: EdgeInsets.fromLTRB(12,8,12,0),
-                              height: 60,
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  CircleAvatar(backgroundImage: NetworkImage(_relatedChannelList[index]!.profilePicture),radius: 15,),
-                                  Expanded(
-                                    child: Container(
-                                        margin: EdgeInsets.only(left: 12),
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Flexible(
-                                                child: Container(
-                                                  child: Text(
-                                                    relatedVideos![index].title,
-                                                    overflow: TextOverflow.ellipsis,
-                                                    style: TextStyle(
-                                                        fontWeight: FontWeight.w500,
-                                                        fontSize:  15
-                                                    ),
-                                                  ),
-                                                )
-                                            ),
-                                            Container(
-                                                margin: EdgeInsets.only(top:1, right: 15),
-                                                child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.start,
-                                                  children: [
-                                                Flexible(
-                                                    child: Text(
-                                                      _relatedChannelList[index]!.title, overflow: TextOverflow.ellipsis,
-                                                      style: TextStyle(
-                                                          fontSize: 12
-                                                      ),
-                                                    )),
-                                                    Text(
-                                                      '  •  ' + _numberFormatter(_relatedVideoStatistic[index]!.viewCount) + ' views',
-                                                      style: TextStyle(
-                                                          fontSize: 12
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      '  •  ' + _dateFormatter(relatedVideos![index].publishDate),
-                                                      style: TextStyle(
-                                                        fontSize: 14,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                )
-                                            )
-                                          ],
-                                        )
-                                    ),
-                                  )
-                                ],
-                              )
-                          )
-                        ],
-                      ),
-                    );
-                  },
+    try{
+      return FutureBuilder<List<Video>?>(
+          future: _getRelatedVideos(widget.actualVideo),
+          builder: (context, AsyncSnapshot snapshot){
+            switch (snapshot.connectionState) {
+              case ConnectionState.none:
+              case ConnectionState.waiting:
+                return Center(
+                  child: CircularProgressIndicator(),
                 );
-              } else {
-                return Text('Videos recomendados não carregados');
-              }
-              break;
+              case ConnectionState.active:
+              case ConnectionState.done:
+                if (snapshot.hasData) {
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    physics: ClampingScrollPhysics(),
+                    itemCount: snapshot.data!.length,
+                    padding: EdgeInsets.zero,
+                    itemBuilder: (context, index) {
+                      List<Video>? relatedVideos = snapshot!.data;
+                      return GestureDetector(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => YoutubePlayerPage(actualVideo: relatedVideos![index], homeVideosList: widget.homeVideosList )));
+                        },
+                        child: Column(
+                          children: <Widget>[
+                            Container(
+                              padding: EdgeInsets.zero,
+                              height: 200,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: NetworkImage(relatedVideos![index].thumbnail),
+                                  )
+                              ),
+                            ),
+                            Container(
+                                padding: EdgeInsets.fromLTRB(12,8,12,0),
+                                height: 60,
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    CircleAvatar(backgroundImage: NetworkImage(_relatedChannelList[index]!.profilePicture),radius: 15,),
+                                    Expanded(
+                                      child: Container(
+                                          margin: EdgeInsets.only(left: 12),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Flexible(
+                                                  child: Container(
+                                                    child: Text(
+                                                      relatedVideos![index].title,
+                                                      overflow: TextOverflow.ellipsis,
+                                                      style: TextStyle(
+                                                          fontWeight: FontWeight.w500,
+                                                          fontSize:  15
+                                                      ),
+                                                    ),
+                                                  )
+                                              ),
+                                              Container(
+                                                  margin: EdgeInsets.only(top:1, right: 15),
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                    children: [
+                                                      Flexible(
+                                                          child: Text(
+                                                            _relatedChannelList[index]!.title, overflow: TextOverflow.ellipsis,
+                                                            style: TextStyle(
+                                                                fontSize: 12
+                                                            ),
+                                                          )),
+                                                      Text(
+                                                        '  •  ' + _numberFormatter(_relatedVideoStatistic[index]!.viewCount) + ' views',
+                                                        style: TextStyle(
+                                                            fontSize: 12
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        '  •  ' + _dateFormatter(relatedVideos![index].publishDate),
+                                                        style: TextStyle(
+                                                          fontSize: 14,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  )
+                                              )
+                                            ],
+                                          )
+                                      ),
+                                    )
+                                  ],
+                                )
+                            )
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                } else {
+                  return Container(
+                      child: Center(child: Text("Server Is Currently Down For Maintenance, Please Try Again Later"))
+                  );
+                }
+                break;
+            }
           }
-        }
-    );
+      );
+    } catch(ex){
+      return Container(
+          child: Center(child: Text("Server Is Currently Down For Maintenance, Please Try Again Later"))
+      );
+    }
+
   }
 }

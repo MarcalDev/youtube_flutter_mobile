@@ -39,54 +39,61 @@ class _YoutubePlayerPageState extends State<YoutubePlayerPage> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<Channel?>(
-        future: _getActualVideoInfo(widget.actualVideo),
-        builder: (context, AsyncSnapshot snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.none:
-            case ConnectionState.waiting:
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            case ConnectionState.active:
-            case ConnectionState.done:
-              if (snapshot.hasData) {
-                Channel? channel = snapshot.data;
-                return Scaffold(
-                  backgroundColor: Theme.of(context).primaryColor,
-                  body: Padding(
-                    padding: EdgeInsets.fromLTRB(0, 32, 0, 0),
-                    child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                YoutubePlayer(
-                                  controller: _controller,
-                                  showVideoProgressIndicator: true,
-                                ),
-                                Expanded(
-                                    child: ListView(
-                                      padding: EdgeInsets.all(0),
-                                      children:<Widget>[
-                                        Column(
-                                          children: [
-                                            /// Informações do vídeo e do canal
-                                            ChannelInfoWidget(actualChannel: channel!, actualVideo: widget.actualVideo, actualVideoStatistic: _actualVideoStatistic!),
-                                            /// Lista videos recomendados
-                                            RelatedVideosWidget(actualVideo: widget.actualVideo, homeVideosList: widget.homeVideosList),
-                                          ],
-                                        )
+    try{
+      return FutureBuilder<Channel?>(
+          future: _getActualVideoInfo(widget.actualVideo),
+          builder: (context, AsyncSnapshot snapshot) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.none:
+              case ConnectionState.waiting:
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              case ConnectionState.active:
+              case ConnectionState.done:
+                if (snapshot.hasData) {
+                  Channel? channel = snapshot.data;
+                  return Scaffold(
+                    backgroundColor: Theme.of(context).primaryColor,
+                    body: Padding(
+                        padding: EdgeInsets.fromLTRB(0, 32, 0, 0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            YoutubePlayer(
+                              controller: _controller,
+                              showVideoProgressIndicator: true,
+                            ),
+                            Expanded(
+                                child: ListView(
+                                  padding: EdgeInsets.all(0),
+                                  children:<Widget>[
+                                    Column(
+                                      children: [
+                                        /// Informações do vídeo e do canal
+                                        ChannelInfoWidget(actualChannel: channel!, actualVideo: widget.actualVideo, actualVideoStatistic: _actualVideoStatistic!),
+                                        /// Lista videos recomendados
+                                        RelatedVideosWidget(actualVideo: widget.actualVideo, homeVideosList: widget.homeVideosList),
                                       ],
                                     )
+                                  ],
                                 )
-                              ],
                             )
-                  ),
-                );
-              } else {
-                return Center( child: Text("Nenhum dado a ser exibido"));
-              }
-              break;
-          }
-        });
+                          ],
+                        )
+                    ),
+                  );
+                } else {
+                  return Center( child: Text("Nenhum dado a ser exibido"));
+                }
+                break;
+            }
+          });
+    }catch(ex){
+      return Container(
+          child: Center(child: Text("Server Is Currently Down For Maintenance, Please Try Again Later"))
+      );
+    }
+
   }
 }

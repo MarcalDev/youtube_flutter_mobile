@@ -55,62 +55,68 @@ class CustomSearchDelegate extends SearchDelegate<String>{
   // define sugestões de pesquisa
   @override
   Widget buildSuggestions(BuildContext context) {
-    if(query.isNotEmpty  && !showVideoList){
-      return FutureBuilder<List<String>>(
-        future: _returnSuggestions(query),
-        builder: (context, snapshot){
-          switch(snapshot.connectionState){
-            case ConnectionState.done:
-              if(snapshot.hasData){
-                List<String>? sugList = snapshot.data;
-                return Container(
-                    color: Theme.of(context).primaryColor,
-                    child: ListView.builder(
-                        itemCount: sugList?.length,
-                        itemBuilder: (context, index){
-                          return ListTile(
-                            focusColor: Colors.white,
-                            hoverColor: Colors.white,
-                            onTap: () async{
-                              //close(context, sugList![index]);
-                              //_showVideosList(sugList);
-                              //Navigator.push(context, MaterialPageRoute(builder: (context) => CustomSearchDelegate()
-                              //await showSearch(context: context, delegate: CustomSearchDelegate(searchText: sugList![index], showVideoList: true));
-                              showVideoList = true;
-                              //searchText = sugList![index];
-                              query = sugList![index];
-                            },
-                            title: Text(sugList![index]),
-                          );
-                        }
-                    )
-                );
-              }
-              else{
+    try{
+      if(query.isNotEmpty  && !showVideoList){
+        return FutureBuilder<List<String>>(
+          future: _returnSuggestions(query),
+          builder: (context, snapshot){
+            switch(snapshot.connectionState){
+              case ConnectionState.done:
+                if(snapshot.hasData){
+                  List<String>? sugList = snapshot.data;
+                  return Container(
+                      color: Theme.of(context).primaryColor,
+                      child: ListView.builder(
+                          itemCount: sugList?.length,
+                          itemBuilder: (context, index){
+                            return ListTile(
+                              focusColor: Colors.white,
+                              hoverColor: Colors.white,
+                              onTap: () async{
+                                //close(context, sugList![index]);
+                                //_showVideosList(sugList);
+                                //Navigator.push(context, MaterialPageRoute(builder: (context) => CustomSearchDelegate()
+                                //await showSearch(context: context, delegate: CustomSearchDelegate(searchText: sugList![index], showVideoList: true));
+                                showVideoList = true;
+                                //searchText = sugList![index];
+                                query = sugList![index];
+                              },
+                              title: Text(sugList![index]),
+                            );
+                          }
+                      )
+                  );
+                }
+                else{
+                  return Center(
+                    child: Text("Nenhum dado a ser exibido"),
+                  );
+                }
+              case ConnectionState.waiting:
                 return Center(
-                  child: Text("Nenhum dado a ser exibido"),
+                  child: CircularProgressIndicator(),
                 );
-              }
-            case ConnectionState.waiting:
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            case ConnectionState.active:
-              return Center();
-            case ConnectionState.none:
-              return Center();
-          }
-        },
+              case ConnectionState.active:
+                return Center();
+              case ConnectionState.none:
+                return Center();
+            }
+          },
+        );
+      }
+      else if(showVideoList){
+        showVideoList = false;
+        //query = searchText;
+        FocusManager.instance.primaryFocus?.unfocus();
+        //return Container(child: Text("Video List"));
+        return SearchedVideosListWidget(searchText: query);
+      } else{
+        return Container();
+      }
+    } catch(ex){
+      return Container(
+          child: Center(child: Text("Server Is Currently Down For Maintenance, Please Try Again Later"))
       );
-    }
-    else if(showVideoList){
-      showVideoList = false;
-      //query = searchText;
-      FocusManager.instance.primaryFocus?.unfocus();
-      //return Container(child: Text("Video List"));
-      return SearchedVideosListWidget(searchText: query);
-    } else{
-      return Container();
     }
   }
 }

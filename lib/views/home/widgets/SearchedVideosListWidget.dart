@@ -79,122 +79,128 @@ class _SearchedVideosListWidgetState extends State<SearchedVideosListWidget> {
   }  
   
   @override
-  Widget build(BuildContext context) {    
-    return FutureBuilder<List<Video>?>(
-        future: _listarVideos(widget.searchText),
-        builder: (context, snapshot){
-          switch(snapshot.connectionState){
-            case ConnectionState.none:
-            case ConnectionState.waiting:
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            case ConnectionState.active:
-            case ConnectionState.done:
-              if(snapshot.hasData){
-                return ListView.builder(
-                  itemBuilder: (context, index) {
-                    List<Video>? videos = snapshot.data;
-                    Video video = videos![index];
-                    return GestureDetector(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => YoutubePlayerPage(actualVideo: video, homeVideosList: videos)));
-                      },
-                      child: Column(
-                        children: <Widget>[
-                          Container(
-                            padding: EdgeInsets.zero,
-                            height: 200,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: NetworkImage(video.thumbnail),
-                                )
-                            ),
-                          ),
-                          Container(
-                              padding: EdgeInsets.fromLTRB(12,8,12,0),
-                              height: 60,
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  CircleAvatar(
-                                    backgroundImage: NetworkImage(_channelsList[index]!.profilePicture),
-                                    radius: 15,
-                                  ),
-                                  Expanded(
-                                    child: Container(
-                                        margin: EdgeInsets.only(left: 12),
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Flexible(
-                                                child: Container(
-                                                  child: Text(
-                                                    video.title,
-                                                    overflow: TextOverflow.ellipsis,
-                                                    style: TextStyle(
-                                                        fontWeight: FontWeight.w500,
-                                                        fontSize:  15
-                                                    ),
-                                                  ),
-                                                )
-                                            ),
-                                            Container(
-                                                margin: EdgeInsets.only(top:1),
-                                                child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.start,
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    Flexible(
-                                                        child: Text(
-                                                          _channelsList[index]!.title, overflow: TextOverflow.fade, maxLines: 1,
-                                                          softWrap: false,
-                                                          style: TextStyle(
-                                                              fontSize: 12
-                                                          ),
-                                                        )
-                                                    ),
-
-                                                    Text(
-                                                      '  •  ' + _numberFormatter(_videoStatisticList[index]!.viewCount) + ' views',
-                                                      style: TextStyle(
-                                                          fontSize: 12
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      '  •  ' + _dateFormatter(video!.publishDate),
-                                                      style: TextStyle(
-                                                        fontSize: 12,
-                                                      ),
-                                                    ),
-
-                                                  ],
-                                                )
-                                            )
-                                          ],
-                                        )
-                                    ),
-                                  )
-                                ],
-                              )
-                          )
-                        ],
-                      ),
-                    );
-                  },
-
-                  itemCount: snapshot.data!.length,
-                );
-              }else{
+  Widget build(BuildContext context) {
+    try{
+      return FutureBuilder<List<Video>?>(
+          future: _listarVideos(widget.searchText),
+          builder: (context, snapshot){
+            switch(snapshot.connectionState){
+              case ConnectionState.none:
+              case ConnectionState.waiting:
                 return Center(
-                  child: Text("Nenhum dado a ser exibido"),
+                  child: CircularProgressIndicator(),
                 );
+              case ConnectionState.active:
+              case ConnectionState.done:
+                if(snapshot.hasData){
+                  return ListView.builder(
+                    itemBuilder: (context, index) {
+                      List<Video>? videos = snapshot.data;
+                      Video video = videos![index];
+                      return GestureDetector(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => YoutubePlayerPage(actualVideo: video, homeVideosList: videos)));
+                        },
+                        child: Column(
+                          children: <Widget>[
+                            Container(
+                              padding: EdgeInsets.zero,
+                              height: 200,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: NetworkImage(video.thumbnail),
+                                  )
+                              ),
+                            ),
+                            Container(
+                                padding: EdgeInsets.fromLTRB(12,8,12,0),
+                                height: 60,
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    CircleAvatar(
+                                      backgroundImage: NetworkImage(_channelsList[index]!.profilePicture),
+                                      radius: 15,
+                                    ),
+                                    Expanded(
+                                      child: Container(
+                                          margin: EdgeInsets.only(left: 12),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Flexible(
+                                                  child: Container(
+                                                    child: Text(
+                                                      video.title,
+                                                      overflow: TextOverflow.ellipsis,
+                                                      style: TextStyle(
+                                                          fontWeight: FontWeight.w500,
+                                                          fontSize:  15
+                                                      ),
+                                                    ),
+                                                  )
+                                              ),
+                                              Container(
+                                                  margin: EdgeInsets.only(top:1),
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      Flexible(
+                                                          child: Text(
+                                                            _channelsList[index]!.title, overflow: TextOverflow.fade, maxLines: 1,
+                                                            softWrap: false,
+                                                            style: TextStyle(
+                                                                fontSize: 12
+                                                            ),
+                                                          )
+                                                      ),
 
-              }
-              break;
+                                                      Text(
+                                                        '  •  ' + _numberFormatter(_videoStatisticList[index]!.viewCount) + ' views',
+                                                        style: TextStyle(
+                                                            fontSize: 12
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        '  •  ' + _dateFormatter(video!.publishDate),
+                                                        style: TextStyle(
+                                                          fontSize: 12,
+                                                        ),
+                                                      ),
+
+                                                    ],
+                                                  )
+                                              )
+                                            ],
+                                          )
+                                      ),
+                                    )
+                                  ],
+                                )
+                            )
+                          ],
+                        ),
+                      );
+                    },
+
+                    itemCount: snapshot.data!.length,
+                  );
+                }else{
+                  return Container(
+                      child: Center(child: Text("Server Is Currently Down For Maintenance, Please Try Again Later"))
+                  );
+
+                }
+                break;
+            }
           }
-        }
-    );
+      );
+    }catch(ex){
+      return Container(
+          child: Center(child: Text("Server Is Currently Down For Maintenance, Please Try Again Later"))
+      );
+    }
   }
 }
