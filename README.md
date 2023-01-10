@@ -1,16 +1,32 @@
-# youtube_flutter_mobile
+<h1 align="center"> FLUTTER YOUTUBE </h1>
 
-A new Flutter project.
+<p align="center">
+<img src="https://img.shields.io/badge/status-in%20progress-yellow"/>
+</p>
 
-## Getting Started
+## Project Description
+Reproduce of youtube mobile app.
 
-This project is a starting point for a Flutter application.
+The intention of the project is practice the use of REST APIs with dart and work with flutter widgets.
 
-A few resources to get you started if this is your first Flutter project:
+## 👨‍💻 Technologies
+- ``Dart``
+- ``Flutter``
+- ``Youtube DATA API``
+- ``REST API``
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## 📱 Features and Interfaces
+### Home
+<img src="https://github.com/MarcalDev/youtube_flutter_mobile/blob/main/readme_files/home_page.gif?raw=true" width="210" height="437"/>
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Video Player
+
+<img src="https://github.com/MarcalDev/youtube_flutter_mobile/blob/main/readme_files/video_player.gif?raw=true" width="210" height="437"/>
+
+### Video Search
+<img src="https://github.com/MarcalDev/youtube_flutter_mobile/blob/main/readme_files/video_search.gif?raw=true" width="210" height="437"/>
+
+## Author
+
+|[<img src="https://avatars.githubusercontent.com/u/99026927?s=400&u=8af9b0b055009437730ee6e048a8dfae0a4dc216&v=4" width=115><br><sub>João Pedro Marçal</sub>](https://github.com/MarcalDev) |
+| :---: |
